@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Special for You 💗</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Quicksand', sans-serif;
+      text-align: center;
+      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+      color: #5d5d5d;
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(10px);
+      padding: 30px;
+      border-radius: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      max-width: 350px;
+      width: 90%;
+      z-index: 10;
+      animation: fadeIn 1.5s ease-out;
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      color: #ff4d6d;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .photo-frame {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    .photo-frame img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 20px;
+      border: 5px solid white;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.6;
+      margin: 10px 0;
+      font-weight: 700;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 50px;
+      background: #ff4d6d;
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3);
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background: #ff758f;
+    }
+
+    #tombolCinta {
+      background: #757bc8;
+      box-shadow: 0 4px 15px rgba(117, 123, 200, 0.3);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .heart {
+      position: fixed;
+      top: -10%;
+      font-size: 20px;
+      user-select: none;
+      z-index: 1;
+      animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+      to { transform: translateY(110vh) rotate(360deg); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="player" style="display:none;">
+    <iframe id="musik" width="0" height="0" 
+    src="https://www.youtube.com/embed/Ys7-6_t7OEQ?start=45&enablejsapi=1" 
+    frameborder="0"></iframe>
+  </div>
+
+  <div class="container" id="mainContent">
+    <h1>Untuk Istriku Sayang 💗</h1>
+
+    <div class="photo-frame">
+      <img src="https://files.catbox.moe/p942h9.jpg" alt="Foto Kamu">
+    </div>
+
+    <p>Aku nggak butuh yang sempurna,</p>
+    <p>Aku cuma butuh kamu... 😍</p>
+    <p>Kamu adalah rumah buat aku,</p>
+    <p>tempatku pulang dan berbagi cerita 🫂</p>
+
+    <div class="btn-group">
+      <button onclick="pesan()">Klik ini yaa 💌</button>
+      <button id="tombolCinta">Jangan dipencet! 😝</button>
+    </div>
+  </div>
+
+  <script>
+    // Memutar musik saat user mengklik apa saja di layar
+    document.body.addEventListener('click', function() {
+        var iframe = document.getElementById("musik");
+        iframe.src += "&autoplay=1";
+    }, { once: true });
+
+    function pesan() {
+      alert("Sayang banget sama kamu! Janji bakal terus jagain kamu sampai akhir. Semangat terus ya harinya! 🤩🫂💗");
+    }
+
+    let klik = 0;
+    const btn = document.getElementById("tombolCinta");
+
+    btn.addEventListener("mouseover", function() { // Berubah ke mouseover biar makin susah diklik!
+      if (klik < 5) {
+        let x = Math.random() * (window.innerWidth - 150);
+        let y = Math.random() * (window.innerHeight - 100);
+
+        btn.style.position = "fixed";
+        btn.style.left = x + "px";
+        btn.style.top = y + "px";
+        klik++;
+      }
+    });
+
+    btn.addEventListener("click", function() {
+        document.getElementById("mainContent").innerHTML = `
+          <h1 style="font-size: 30px;">Hehe, ketangkep! 😆💗</h1>
+          <img src="https://files.catbox.moe/p942h9.jpg" style="width:150px; border-radius:50%; border: 5px solid #ff4d6d; margin: 20px 0;">
+          <p>Aku beneran serius sama kamu...</p>
+          <p>Makasih ya sudah ada buat aku selama ini. I Love You! 😭💗</p>
+          <h2 style="color:#ff4d6d;">Jangan pergi yaa... 🥺</h2>
+        `;
+    });
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      const types = ["💗", "💖", "🌸", "✨"];
+      heart.innerHTML = types[Math.floor(Math.random() * types.length)];
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+      heart.style.opacity = Math.random();
+      document.body.appendChild(heart);
+
+      setTimeout(() => { heart.remove(); }, 5000);
+    }
+
+    setInterval(createHeart, 300);
+  </script>
+
+</body>
+</html>
